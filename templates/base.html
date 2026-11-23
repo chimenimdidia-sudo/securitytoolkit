@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Security Toolkit{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">Security Toolkit</a>
+            <nav>
+                <a href="/" class="{% if request.path == '/' %}active{% endif %}">Dashboard</a>
+                <a href="/phishing" class="{% if request.path == '/phishing' %}active{% endif %}">Phishing</a>
+                <a href="/hash" class="{% if request.path == '/hash' %}active{% endif %}">Hashing</a>
+                <a href="/hash-file" class="{% if request.path == '/hash-file' %}active{% endif %}">File Integrity</a>
+                <a href="/alerts" class="{% if request.path.startswith('/alerts') %}active{% endif %}">Alerts</a>
+                <a href="http://127.0.0.1:8080" target="_blank">Honeypot</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

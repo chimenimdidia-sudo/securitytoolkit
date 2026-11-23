@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}File Integrity - Security Toolkit{% endblock %}
+
+{% block content %}
+<h1>File Integrity Checker</h1>
+
+<div class="panel">
+    <form method="POST" enctype="multipart/form-data">
+        <label for="file">Choose a file</label>
+        <input type="file" id="file" name="file" required>
+
+        <label for="expected">Expected hash (optional)</label>
+        <input type="text" id="expected" name="expected" placeholder="Paste the hash the file should have">
+
+        <p><button type="submit">Check file</button></p>
+    </form>
+</div>
+
+{% if results %}
+    <div class="panel">
+        <h2>File: {{ filename }}</h2>
+        {% for name, value in results.items() %}
+            <div class="hash-row">
+                <div class="name">{{ name }}</div>
+                <div class="value mono">{{ value }}</div>
+            </div>
+        {% endfor %}
+
+        {% if checked %}
+            {% if matched %}
+                <div class="match ok">MATCH: the file is intact ({{ matched }})</div>
+            {% else %}
+                <div class="match bad">NO MATCH: the file has been changed or is corrupted</div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

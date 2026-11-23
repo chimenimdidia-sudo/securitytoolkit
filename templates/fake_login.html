@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; }
+        .box { width: 300px; margin: 100px auto; padding: 20px; background: white; border: 1px solid #ccc; }
+        input { width: 100%; margin-bottom: 10px; padding: 6px; box-sizing: border-box; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Admin Portal</h2>
+        {% if error %}<p class="error">{{ error }}</p>{% endif %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Log in</button>
+        </form>
+    </div>
+</body>
+</html>

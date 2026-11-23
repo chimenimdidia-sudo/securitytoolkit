@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Phishing Detector - Security Toolkit{% endblock %}
+
+{% block content %}
+<h1>Phishing URL Detector</h1>
+
+<div class="panel">
+    <form method="POST">
+        <label for="url">Link to check</label>
+        <input type="text" id="url" name="url" value="{{ url }}" placeholder="Paste a link here, for example http://example.com/login">
+        <p><button type="submit">Check link</button></p>
+    </form>
+    <p class="muted">The link is analysed as text only. It is never opened.</p>
+</div>
+
+{% if result %}
+    {% set level = 'high' if result.verdict == 'Likely phishing' else ('medium' if result.verdict == 'Suspicious' else 'low') %}
+    <div class="panel">
+        <p class="verdict {{ level }}">{{ result.verdict }}</p>
+        <div class="meter"><div class="meter-fill {{ level }}" style="width: {{ result.percent }}%;"></div></div>
+        <p>Risk score: <strong>{{ result.percent }}%</strong></p>
+
+        {% if result.reasons %}
+            <h2>Warning signs found</h2>
+            <ul>
+                {% for reason in result.reasons %}
+                    <li>{{ reason }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty">No warning signs found.</p>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
