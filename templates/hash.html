@@ -1,23 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hash Generator</title>
-        <style>
-        p { word-break: break-all; }
-    </style>
-</head>
-<body>
-    <h1>Hash Generator</h1>
-    <form method="POST">
-        <input type="text" name="text" value="{{ text }}" placeholder="Type something" size="40">
-        <button type="submit">Generate</button>
-    </form>
+{% extends "base.html" %}
 
-    {% if results %}
+{% block title %}Hash Generator - Security Toolkit{% endblock %}
+
+{% block content %}
+<h1>Hash Generator</h1>
+
+<div class="panel">
+    <form method="POST">
+        <label for="text">Text to hash</label>
+        <input type="text" id="text" name="text" value="{{ text }}" placeholder="Type something">
+        <p><button type="submit">Generate</button></p>
+    </form>
+</div>
+
+{% if results %}
+    <div class="panel">
         <h2>Results</h2>
         {% for name, value in results.items() %}
-            <p><strong>{{ name }}:</strong> {{ value }}</p>
+            <div class="hash-row">
+                <div class="name">{{ name }}</div>
+                <div class="value mono">{{ value }}</div>
+            </div>
         {% endfor %}
-    {% endif %}
-</body>
-</html>
+    </div>
+{% endif %}
+{% endblock %}
